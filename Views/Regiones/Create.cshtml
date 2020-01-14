@@ -1,0 +1,103 @@
+﻿@model ASP.NET_CORE_WEB_SITE.Models.Regiones
+
+@{
+	ViewData["Title"] = "Create";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row d-flex justify-content-center w-100">
+	<div>
+		<h1>Crear</h1>
+	</div>
+</div>
+<div class="row d-flex justify-content-between align px-3">
+	<div>
+		<h4>Regiones</h4>
+	</div>
+	<div class="pr-2">
+		<a class="btn btn-primary" asp-action="Index">Volver a la lista</a>
+	</div>
+</div>
+<hr />
+<div class="row d-flex justify-content-center mt-5">
+	<div class="col-md-4 card pt-5">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			@*<div class="form-group">
+					<label asp-for="RegionID" class="control-label"></label>
+					<input asp-for="RegionID" class="form-control" />
+					<span asp-validation-for="RegionID" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+						<label asp-for="PaisID" class="control-label"></label>
+						<input asp-for="PaisID" class="form-control" />
+						<span asp-validation-for="PaisID" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Region" class="control-label"></label>
+						<input asp-for="Region" class="form-control" />
+						<span asp-validation-for="Region" class="text-danger"></span>
+					</div>*@
+			<!--Blue select-->
+			<!--Select with pure css-->
+			<div class="select">
+				<select class="select-text" required>
+					<option value="" disabled selected></option>
+					@{
+						foreach (var item in (IEnumerable<ASP.NET_CORE_CLASS_MODELS.Paises>)ViewData["Paises"])
+						{
+							<option value="@item.PaisID">@item.Pais</option>
+						}
+					}
+				</select>
+				<span class="select-highlight"></span>
+				<span class="select-bar"></span>
+				<label class="select-label">Select</label>
+			</div>
+			<!--Select with pure css-->
+			<!--/Blue select-->
+			<div class="md-form" style="display:none;">
+				<label asp-for="PaisID" class="md-form-label"></label>
+				<input asp-for="PaisID" id="PaisID" class="form-control" required />
+				@*<span asp-validation-for="PaisID" class="text-danger aspValidationFor"> </span>*@
+			</div>
+			<div class="md-form">
+				<label asp-for="Region" class="md-form-label"></label>
+				<input asp-for="Region" id="Region" class="form-control" required />
+				<span asp-validation-for="Region" class="text-danger aspValidationFor"> </span>
+			</div>
+			<div class="form-group d-flex justify-content-end">
+				<input type="submit" value="Crear" class="btn btn-primary createButton" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function () {
+		$('.createButton').click(function () {
+			setTimeout(function () {
+				if ($('#Region').val() == '')
+					$('.aspValidationFor').text('El campo Región es obligatorio');
+			}, 10);
+		});
+		$(".select-text").change(function () {
+			var selectedCountry = $(this).children("option:selected").val();
+			var valueCountry = $(this).children("option:selected").text();
+			console.log("Pais: " + selectedCountry + ", " + valueCountry);
+			$('#PaisID').val(selectedCountry);
+		});
+	})
+</script>
+
+@await Html.PartialAsync("~/Views/Shared/ShowMessage.cshtml")
+@if (ViewData["Error"] == null)
+{
+	<script>
+		$('#Region').val('');
+	</script>
+}
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

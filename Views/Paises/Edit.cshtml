@@ -1,0 +1,45 @@
+﻿@model ASP.NET_CORE_CLASS_MODELS.Paises
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row d-flex justify-content-center w-100">
+    <div>
+        <h1>Actualizar</h1>
+    </div>
+</div>
+<div class="row d-flex justify-content-between align px-3">
+    <div>
+        <h4>Paises</h4>
+    </div>
+    <div class="pr-2">
+        <a class="btn btn-primary" asp-action="Index">Volver a la lista</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="md-form">
+                <label asp-for="PaisID" class="control-label"></label>
+                <input asp-for="PaisID" class="form-control" readonly />
+            </div>
+            <div class="md-form">
+                <label asp-for="Pais" class="control-label"></label>
+                <input asp-for="Pais" class="form-control" />
+                <span asp-validation-for="Pais" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Views/Shared/ShowMessage.cshtml")
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

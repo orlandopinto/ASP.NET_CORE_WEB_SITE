@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>..:: [ Admin Template ] ::..</title>
+
+	<link href="~/css/style.css" rel="stylesheet" />
+	<link rel="stylesheet" href="~/css/site.css" />
+	<link href="~/css/all.css" rel="stylesheet" />
+	<link href="~/css/mdb.min.css" rel="stylesheet" />
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/js/popper.min.js"></script>
+
+	<script src="~/js/sweetalert2@9.js"></script>
+	<script src="~/js/ShowMessage.js"></script>
+	<style>
+		.list-unstyled li:hover {
+			transition: all .2s ease-in-out;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper d-flex align-items-stretch">
+		<nav id="sidebar">
+			@*<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+						<i class="fa fa-bars"></i>
+						<span class="sr-only">Toggle Menu</span>
+					</button>
+				</div>*@
+			<div class="custom-menu">
+				<div id="sidebarCollapse2">
+					<i class="fa fa-bars" style="margin-top: 34px; margin-left: 18px;"></i>
+					<span class="sr-only">Toggle Menu</span>
+				</div>
+			</div>
+			<div class="p-4 ">
+				<div class="w-100 d-flex justify-content-center p-2">
+					<img src="~/images/Worms.png" alt="" class="imgUser rounded-circle" />
+				</div>
+				<div class="w-100 d-flex justify-content-center" style="text-align:center;">
+					<h1><a href="index.html" class="logo">Administrador<span>Orlando Pinto</span></a></h1>
+				</div>
+				<div>
+					<ul class="list-unstyled components mb-5">
+						<li class="active"><a href="/Paises"><i class="fa fa-map-marker-alt mr-3"></i>Paises</a> </li>
+						<li><a href="/Regiones"><i class="fa fa-map-marker-alt mr-3"></i>Regiones</a></li>
+						<li><a href="#"><i class="fa fa-map-marker-alt mr-3"></i>Estados</a></li>
+						<li><a href="#"><i class="fa fa-map-marker-alt mr-3"></i>Municipios</a></li>
+						<li><a href="#"><i class="fas fa-images mr-3"></i>Fotos</a></li>
+						<li><a href="#"><i class="fa fa-store-alt mr-3"></i>Establecimientos</a></li>
+						<li><a href="#"><i class="fa fa-project-diagram mr-3"></i>Categorias</a></li>
+						<li><a href="#"><i class="fa fa-handshake mr-3"></i>Servicios</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- Page Content  -->
+		<div id="content" class="p-4 p-md-5 pt-5">
+			<nav class="navbar navbar-expand-lg navbar-dark primary-color bg-navbar" style="background-color:#3445B4 !important;">
+				<div class="w-100">
+					<div class="d-flex">
+						<div class="w-100">
+							<a class="navbar-brand px-3" href="javascript:void(0)">
+								<img src="~/images/logo.png" alt="" style="width:80px;" />
+							</a>
+						</div>
+						<div class="flex-shrink-1">
+							<ul class="navbar-nav mr-auto d-flex flex-row-reverse w-100 pt-2">
+								<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#fullHeightModalRight"><i class="fas fa-cog"></i></a></li>
+								<li class="nav-item dropdown">
+									<a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i></a>
+									<div class="dropdown-menu dropdown-primary dropdown-menu-right p-2" aria-labelledby="navbarDropdownMenuLink">
+										<a class="dropdown-item" href="#">Action</a>
+										<a class="dropdown-item" href="#">Another action</a>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</li>
+								<li class="nav-item"><a class="nav-link" href="/"><i class="fa fa-home"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</nav>
+
+			<div class="container-fluid main-container  pb-5 mb-5">
+				<main role="main" class="pb-3">
+					@RenderBody()
+				</main>
+			</div>
+		</div>
+	</div>
+	<a name="return-to-top"></a>
+
+	<!-- Full Height Modal Right -->
+	<div class="modal fade right show" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="true" data-gtm-vis-first-on-screen-2340190_1302="7697293" data-gtm-vis-total-visible-time-2340190_1302="100" data-gtm-vis-has-fired-2340190_1302="1" style="display: none; padding-right: 17px;" aria-modal="true">
+		<div class="modal-dialog modal-full-height modal-right modal-notify modal-success" role="document">
+			<!--Content-->
+			<div class="modal-content">
+				<!--Header-->
+				<div class="modal-header">
+					<p class="heading lead">Modal Success</p>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true" class="white-text">×</span>
+					</button>
+				</div>
+
+				<!--Body-->
+				<div class="modal-body">
+					<div class="text-center">
+						<i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam blanditiis ad
+							consequatur
+							in dolores culpa, dignissimos, eius non possimus fugiat. Esse ratione fuga, enim, ab officiis totam.
+						</p>
+					</div>
+					<ul class="list-group z-depth-0">
+						<li class="list-group-item justify-content-between">
+							Cras justo odio
+							<span class="badge badge-primary badge-pill">14</span>
+						</li>
+						<li class="list-group-item justify-content-between">
+							Dapibus ac facilisis in
+							<span class="badge badge-primary badge-pill">2</span>
+						</li>
+						<li class="list-group-item justify-content-between">
+							Morbi leo risus
+							<span class="badge badge-primary badge-pill">1</span>
+						</li>
+					</ul>
+				</div>
+
+				<!--Footer-->
+				<div class="modal-footer justify-content-center">
+					<a type="button" class="btn btn-success waves-effect waves-light">
+						Get it now
+						<i class="far fa-gem ml-1"></i>
+					</a>
+					<a type="button" class="btn btn-outline-success waves-effect" data-dismiss="modal">No, thanks</a>
+				</div>
+			</div>
+			<!--/.Content-->
+		</div>
+	</div>
+	<!-- Full Height Modal Right -->
+	@*<a href="javascript:" id="return-to-top"><i class="fas fa-hand-pointer"></i></a>*@
+
+	<a href="javascript:" id="return-to-top" type="button" class="btn-floating btn-small btn-fb waves-effect waves-light"><i class="fas fa-hand-pointer"></i></a>
+
+
+	<footer class="border-top footer text-muted bg-dark pt-3">
+		<div class="pr-3 text-right">&copy; 2020 - Admin Template demo - <a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></div>
+	</footer>
+	<script src="~/js/bootstrap.js"></script>
+	<script src="~/js/mdb.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/main.js"></script>
+	<script src="~/js/nanobar.min.js"></script>
+	<script>
+		var simplebar = new Nanobar();
+		simplebar.go(100);
+		var colorbar = new Nanobar({ target: document.getElementById('color') });
+		colorbar.go(100);
+		var centeredbar = new Nanobar({ target: document.getElementById('centered') });
+		centeredbar.go(100);
+	</script>
+	@RenderSection("Scripts", required: false)
+
+</body>
+</html>

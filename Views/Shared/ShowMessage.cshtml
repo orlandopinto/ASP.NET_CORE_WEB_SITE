@@ -1,0 +1,18 @@
+﻿@{
+	if (ViewData["Message"] != null)
+	{
+		if (ViewData["Error"] == null)
+		{
+			<script>
+                    fireMessage('@ViewData["TitleMessage"]', '@ViewData["Message"]', typeMesaageOptions.success);
+			</script>
+		}
+		else
+		{
+			<script>
+					Swal.fire('@ViewData["TitleMessage"]', '@ViewData["Message"]', 'error')
+                    fireMessage('Error', '@ViewData["Message"]', typeMesaageOptions.error);
+			</script>
+		}
+	}
+}

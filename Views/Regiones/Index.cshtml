@@ -1,0 +1,66 @@
+﻿@model IPagedList<ASP.NET_CORE_CLASS_MODELS.Regiones>
+@using System.Linq;
+@using X.PagedList;
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+	.dropdown-toggle::after {
+		display: none;
+	}
+</style>
+<div class="pb-5">
+	<div class="row d-flex justify-content-center w-100">
+		<div><h1>Listado</h1></div>
+	</div>
+	<div class="row d-flex justify-content-between align-items-center px-5">
+		<div><h4>Regiones</h4></div>
+		<div class="dropdown d-flex justify-content-end">
+			<a class="dropdown-toggle dropdown-menu-left" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+			<div class="dropdown-menu dropdown-primary dropdown-menu-right p-2">
+				<a class="dropdown-item" href="/Regiones/Create">Nuevo</a>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<div class="container">
+		<table class="table table-striped table-bordered table-sm">
+			<thead>
+				<tr>
+					<th>Pais</th>
+					<th>ID</th>
+					<th>Región</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@{
+					foreach (var item in Model)
+					{
+						var NombrePais = ((List<ASP.NET_CORE_CLASS_MODELS.Paises>)ViewData["Paises"]).Where(s => s.PaisID == item.PaisID).Select(s => s.Pais).FirstOrDefault();
+						<tr>
+							<td style="vertical-align: middle; width:25%;">@NombrePais</td>
+							<td style="vertical-align: middle; width:25%;">@Html.DisplayFor(modelItem => item.RegionID)</td>
+							<td style="vertical-align: middle; width:25%;">@Html.DisplayFor(modelItem => item.Region)</td>
+							<td style="text-align:center;">
+								<a href="/Regiones/Edit/@item.RegionID" class="btn btn-success btn-sm p-2 mr-2"><i class="fa fa-edit fa-2x"></i></a>
+								<a class="btn btn-danger btn-sm p-2" style="width:40px;" onclick="deleteRecord('@item.RegionID')"><i class="fa fa-trash fa-2x"></i></a>
+							</td>
+						</tr>
+					}
+				}
+			</tbody>
+		</table>
+		<nav class="page-navigation">
+			<ul class="pagination pg-blue"></ul>
+		</nav>
+	</div>
+	<hr />
+	<div class="d-flex justify-content-end p-2">
+		<button type="button" class="btn btn-primary btn-md" onclick="jacascript:location.href='/Regiones/Create'">Nuevo</button>
+	</div>
+</div>
+<script src="~/js/Regiones/transactions.js"></script>
+@await Html.PartialAsync("~/Views/Shared/ShowMessage.cshtml");

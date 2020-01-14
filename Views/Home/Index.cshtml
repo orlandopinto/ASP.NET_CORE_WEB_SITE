@@ -1,0 +1,133 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+@using Microsoft.Extensions.Options
+@{
+	@inject IOptions<AppSettings> OptionsAppSettings
+
+
+	var color = OptionsAppSettings.Value.Colour;
+}
+	<div>
+		<div class="container h-100 text-black-50">
+			<!--Grid row-->
+			<div class="row align-items-center h-100 text-black-50">
+				<!--Grid column-->
+				<div class="col-md-6 wow fadeInLeft animated" data-wow-delay="0.2s" style="visibility: visible; animation-name: fadeInLeft; animation-delay: 0.2s; color:black;">
+					<h1 class="mb-4">Better Website Design, More Conversion</h1>
+					<p class="mb-4 pb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam vitae, culpa qui officia deserunt labor debitis.</p>
+					<button type="button" class="btn btn-outline-primary btn-md ml-md-0 waves-effect waves-light">Get started</button>
+					<button type="button" class="btn btn-primary btn-md waves-effect waves-light">Get started</button>
+				</div>
+				<!--Grid column-->
+				<!--Grid column-->
+				<div class="col-md-6 wow fadeInRight animated" data-wow-delay="0.2s" style="visibility: visible; animation-name: fadeInRight; animation-delay: 0.2s;">
+					<img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/cards2.png" alt="" class="img-fluid">
+				</div>
+				<!--Grid column-->
+			</div>
+			<!--Grid row-->
+		</div>
+		<hr />
+
+		<!--Section: Content-->
+		<section class="dark-grey-text">
+
+			<!-- Section heading -->
+			<h2 class="text-center font-weight-bold mb-4 pb-2">Why is it so great?</h2>
+			<!-- Section description -->
+			<p class="text-center lead grey-text mx-auto mb-5">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+			</p>
+
+			<!-- Grid row -->
+			<div class="row">
+
+				<!-- Grid column -->
+				<div class="col-lg-5 text-center text-lg-left">
+					<img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/screens-section.jpg" alt="Sample image">
+				</div>
+				<!-- Grid column -->
+				<!-- Grid column -->
+				<div class="col-lg-7">
+
+					<!-- Grid row -->
+					<div class="row mb-3">
+
+						<!-- Grid column -->
+						<div class="col-1">
+							<i class="fas fa-share fa-lg indigo-text"></i>
+						</div>
+						<!-- Grid column -->
+						<!-- Grid column -->
+						<div class="col-xl-10 col-md-11 col-10">
+							<h5 class="font-weight-bold mb-3">Safety</h5>
+							<p class="grey-text">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit enim ad minima veniam,
+								quis nostrum exercitationem ullam. Reprehenderit maiores aperiam assumenda deleniti hic.
+							</p>
+						</div>
+						<!-- Grid column -->
+
+					</div>
+					<!-- Grid row -->
+					<!-- Grid row -->
+					<div class="row mb-3">
+
+						<!-- Grid column -->
+						<div class="col-1">
+							<i class="fas fa-share fa-lg indigo-text"></i>
+						</div>
+						<!-- Grid column -->
+						<!-- Grid column -->
+						<div class="col-xl-10 col-md-11 col-10">
+							<h5 class="font-weight-bold mb-3">Technology</h5>
+							<p class="grey-text">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit enim ad minima veniam,
+								quis nostrum exercitationem ullam. Reprehenderit maiores aperiam assumenda deleniti hic.
+							</p>
+						</div>
+						<!-- Grid column -->
+
+					</div>
+					<!-- Grid row -->
+					<!--Grid row-->
+					<div class="row">
+
+						<!-- Grid column -->
+						<div class="col-1">
+							<i class="fas fa-share fa-lg indigo-text"></i>
+						</div>
+						<!-- Grid column -->
+						<!-- Grid column -->
+						<div class="col-xl-10 col-md-11 col-10">
+							<h5 class="font-weight-bold mb-3">Finance</h5>
+							<p class="grey-text mb-0">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit enim ad minima
+								veniam, quis nostrum exercitationem ullam. Reprehenderit maiores aperiam assumenda deleniti hic.
+							</p>
+						</div>
+						<!-- Grid column -->
+
+					</div>
+					<!--Grid row-->
+
+				</div>
+				<!--Grid column-->
+
+			</div>
+			<!-- Grid row -->
+
+		</section>
+		<!--Section: Content-->
+		<hr />
+		<!-- Full Page Intro -->
+		<div class="col-lg-8 mx-auto align-self-end wow fadeInUp animated" data-wow-delay="0.3s" style="visibility: visible; animation-name: fadeInUp; animation-delay: 0.3s;">
+			<img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-cards.png" alt="" class="img-fluid">
+		</div>
+		<!-- Full Page Intro -->
+	</div>
+<script>
+	
+</script>
