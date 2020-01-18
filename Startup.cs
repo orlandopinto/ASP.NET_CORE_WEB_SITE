@@ -1,4 +1,6 @@
 using ASP.NET_CORE_WEB_SITE.Models;
+using ASP.NET_CORE_WEB_SITE.Repositories;
+using ASP.NET_CORE_WEB_SITE.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System;
 
 namespace ASP.NET_CORE_WEB_SITE
@@ -14,7 +17,6 @@ namespace ASP.NET_CORE_WEB_SITE
 	public class Startup
 	{
 		public IConfiguration Configuration { get; private set; }
-		public AppSettings AppSettings;
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -22,14 +24,12 @@ namespace ASP.NET_CORE_WEB_SITE
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc();
-			services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+			services.AddMvc().AddSessionStateTempDataProvider();
 			services.AddControllersWithViews().AddRazorRuntimeCompilation();
-			services.Configure<AppSettings>(appSettings =>
-			{
-				appSettings.Colour = "blue";
-				appSettings.ConnectionString = "ConnectionString";
-			});
+			var storeAppSettings = new StoreAppSettings();
+			Configuration.GetSection("StoreAppSettings").Bind(storeAppSettings);
+			services.AddScoped(sp => sp.GetService<IOptionsSnapshot<SettingsStoreApp>>().Value);
+			services.Configure<SettingsStoreApp>(Configuration);
 			services.AddControllers(options =>
 			{
 				// requires using Microsoft.AspNetCore.Mvc.Formatters;
@@ -44,16 +44,6 @@ namespace ASP.NET_CORE_WEB_SITE
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
-			else
-			{
-				app.UseExceptionHandler("/Home/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
-			}
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseRouting();

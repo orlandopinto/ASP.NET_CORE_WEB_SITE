@@ -11,26 +11,33 @@ function buildPaginer() {
 		contentType: 'application/json; charset=utf-8',
 		success: function (data) {
 			$(".page-navigation ul li").remove();
-			console.log('data: ' + data);
-			var countPage = 0;
-			if (data.hasPreviousPage == true) {
-				var previousPage = data.page - 1;
-				$(".page-navigation ul").append('<li i class="page-item"><a class="page-link" href="Paises?page=' + previousPage + '"><i class="fas fa-chevron-left" style="color:#4285f4;font-size:18px;"></i></a></li> ');
-			}
-			for (var i = 0; i < data.pageCount; i++) {
-				countPage++;
-				_page = countPage;
-				_pageSize = data.pageSize;
-				if (data.page == i + 1) {
-					CurrentPage = i + 1;
-					$(".page-navigation ul").append('<li i class="page-item active"><a class="page-link" href="Paises?page=' + _page + '">' + _page + '</a></li>');
+			try {
+				console.log('data: ' + data);
+				if (data != null) {
+					var countPage = 0;
+					if (data.hasPreviousPage == true) {
+						var previousPage = data.page - 1;
+						$(".page-navigation ul").append('<li i class="page-item"><a class="page-link" href="Paises?page=' + previousPage + '"><i class="fas fa-chevron-left" style="color:#4285f4;font-size:18px;"></i></a></li> ');
+					}
+					for (var i = 0; i < data.pageCount; i++) {
+						countPage++;
+						_page = countPage;
+						_pageSize = data.pageSize;
+						if (data.page == i + 1) {
+							CurrentPage = i + 1;
+							$(".page-navigation ul").append('<li i class="page-item active"><a class="page-link" href="Paises?page=' + _page + '">' + _page + '</a></li>');
+						}
+						else
+							$(".page-navigation ul").append('<li i class="page-item"><a class="page-link" href="Paises?page=' + _page + '">' + _page + '</a></li>');
+					}
+					if (data.hasNextPage == true) {
+						var nextPage = data.page + 1;
+						$(".page-navigation ul").append('<li i class="page-item"><a class="page-link" href="Paises?page=' + nextPage + '"><i class="fas fa-chevron-right" style="color:#4285f4;font-size:18px;"></i></a></li> ');
+					}
 				}
-				else
-					$(".page-navigation ul").append('<li i class="page-item"><a class="page-link" href="Paises?page=' + _page + '">' + _page + '</a></li>');
-			}
-			if (data.hasNextPage == true) {
-				var nextPage = data.page + 1;
-				$(".page-navigation ul").append('<li i class="page-item"><a class="page-link" href="Paises?page=' + nextPage + '"><i class="fas fa-chevron-right" style="color:#4285f4;font-size:18px;"></i></a></li> ');
+
+			} catch (e) {
+
 			}
 		}
 	});

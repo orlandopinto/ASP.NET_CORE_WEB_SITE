@@ -19,24 +19,19 @@
 		.list-unstyled li:hover {
 			transition: all .2s ease-in-out;
 		}
+		
 	</style>
 </head>
 <body>
 	<div class="wrapper d-flex align-items-stretch">
 		<nav id="sidebar">
-			@*<div class="custom-menu">
-					<button type="button" id="sidebarCollapse" class="btn btn-primary">
-						<i class="fa fa-bars"></i>
-						<span class="sr-only">Toggle Menu</span>
-					</button>
-				</div>*@
 			<div class="custom-menu">
 				<div id="sidebarCollapse2">
 					<i class="fa fa-bars" style="margin-top: 34px; margin-left: 18px;"></i>
 					<span class="sr-only">Toggle Menu</span>
 				</div>
 			</div>
-			<div class="p-4 ">
+			<div class="p-4  animated bounceInLeft">
 				<div class="w-100 d-flex justify-content-center p-2">
 					<img src="~/images/Worms.png" alt="" class="imgUser rounded-circle pulse" />
 				</div>
@@ -64,7 +59,7 @@
 					<div class="d-flex">
 						<div class="w-100">
 							<a class="navbar-brand px-3" href="javascript:void(0)">
-								<img src="~/images/logo.png" alt="" style="width:80px;" />
+								<img src="~/images/logo.png" alt="" style="width:80px;" class="animated bounceInLeft" />
 							</a>
 						</div>
 						<div class="flex-shrink-1">
@@ -73,9 +68,32 @@
 								<li class="nav-item dropdown">
 									<a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i></a>
 									<div class="dropdown-menu dropdown-primary dropdown-menu-right p-2" aria-labelledby="navbarDropdownMenuLink">
-										<a class="dropdown-item" href="#">Action</a>
-										<a class="dropdown-item" href="#">Another action</a>
-										<a class="dropdown-item" href="#">Something else here</a>
+										<div>
+											<div class="row">
+												<div class="col-md-12">
+													<section>
+														<div class="list-group list-group-flush z-depth-1 rounded">
+															<a href="#!" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+																Proyectos
+																<span class="badge badge-info badge-pill">26</span>
+															</a>
+															<a href="#!" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+																Tareas
+																<span class="badge badge-warning badge-pill">5</span>
+															</a>
+															<a href="#!" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+																Proyectos completados
+																<span class="badge badge-success badge-pill">10</span>
+															</a>
+															<a href="#!" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+																Seguidores
+																<span class="badge badge-danger badge-pill">728</span>
+															</a>
+														</div>
+													</section>
+												</div>
+											</div>
+										</div>
 									</div>
 								</li>
 								<li class="nav-item"><a class="nav-link" href="/"><i class="fa fa-home"></i></a></li>
@@ -84,7 +102,6 @@
 					</div>
 				</div>
 			</nav>
-
 			<div class="container-fluid main-container  pb-5 mb-5">
 				<main role="main" class="pb-3">
 					@RenderBody()
@@ -97,64 +114,72 @@
 	<!-- Full Height Modal Right -->
 	<div class="modal fade right show" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="true" data-gtm-vis-first-on-screen-2340190_1302="7697293" data-gtm-vis-total-visible-time-2340190_1302="100" data-gtm-vis-has-fired-2340190_1302="1" style="display: none; padding-right: 17px;" aria-modal="true">
 		<div class="modal-dialog modal-full-height modal-right modal-notify modal-success" role="document">
-			<!--Content-->
 			<div class="modal-content">
-				<!--Header-->
 				<div class="modal-header">
-					<p class="heading lead">Modal Success</p>
-
+					<p class="heading lead">Configuraciones</p>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true" class="white-text">×</span>
 					</button>
 				</div>
-
-				<!--Body-->
 				<div class="modal-body">
 					<div class="text-center">
-						<i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam blanditiis ad
-							consequatur
-							in dolores culpa, dignissimos, eius non possimus fugiat. Esse ratione fuga, enim, ab officiis totam.
-						</p>
+						Filtro Sidebar
+						<hr />
 					</div>
-					<ul class="list-group z-depth-0">
-						<li class="list-group-item justify-content-between">
-							Cras justo odio
-							<span class="badge badge-primary badge-pill">14</span>
-						</li>
-						<li class="list-group-item justify-content-between">
-							Dapibus ac facilisis in
-							<span class="badge badge-primary badge-pill">2</span>
-						</li>
-						<li class="list-group-item justify-content-between">
-							Morbi leo risus
-							<span class="badge badge-primary badge-pill">1</span>
-						</li>
-					</ul>
+					<div class="row">
+						<div class="col-3"><a class="btn-floating aqua-gradient" href="#"></a></div>
+						<div class="col-3"><a class="btn-floating blue-gradient" href="#"></a></div>
+						<div class="col-3"><a class="btn-floating frozen-dreams-gradient" href="#"></a></div>
+						<div class="col-3"><a class="btn-floating dusty-grass-gradient" href="#"></a></div>
+					</div>
+					<div class="text-center mt-4">
+						Fondo del SIte
+						<hr />
+					</div>
+					<div class="row d-flex justify-content-center">
+						<div class="col-2"><a class="btn-floating bg-dark" href="#"></a></div>
+						<div class="col-2"><a class="btn-floating bg-light" href="#"></a></div>
+						<div class="col-2"><a class="btn-floating bg-danger" href="#"></a></div>
+					</div>
+					<hr />
+					<div class="row d-flex justify-content-lg-between">
+						<div class="col">SideBar Mini</div>
+						<div class="switch col d-flex justify-content-end">
+							<label>
+								<input type="checkbox" id="switchStatus">
+								<span class="lever"></span>
+							</label>
+						</div>
+					</div>
+					<hr />
+					<div class="row d-flex justify-content-lg-between">
+						<div class="col">SideBar Imagenes</div>
+						<div class="switch col d-flex justify-content-end">
+							<label>
+								<input type="checkbox" id="switchStatus">
+								<span class="lever"></span>
+							</label>
+						</div>
+						<hr />
+					</div>
 				</div>
-
-				<!--Footer-->
 				<div class="modal-footer justify-content-center">
-					<a type="button" class="btn btn-success waves-effect waves-light">
-						Get it now
-						<i class="far fa-gem ml-1"></i>
-					</a>
-					<a type="button" class="btn btn-outline-success waves-effect" data-dismiss="modal">No, thanks</a>
+					<a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Aplicar</a>
 				</div>
 			</div>
-			<!--/.Content-->
 		</div>
 	</div>
-	<!-- Full Height Modal Right -->
-	@*<a href="javascript:" id="return-to-top"><i class="fas fa-hand-pointer"></i></a>*@
 
 	<a href="javascript:" id="return-to-top" type="button" class="btn-floating btn-small btn-fb waves-effect waves-light"><i class="fas fa-hand-pointer"></i></a>
 
-
-	<footer class="border-top footer text-muted bg-dark pt-3">
-		<div class="pr-3 text-right">&copy; 2020 - Admin Template demo - <a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></div>
+	<footer class="page-footer font-small blue">
+		<div class="" style="height:5px; background-color: #2E49A8;">
+		</div>
+		<div class="footer-copyright text-center py-3 blue-gradient-rgba">
+			<div class="pr-3 text-right">&copy; 2020 - Admin Template demo - <a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></div>
+		</div>
 	</footer>
+	
 	<script src="~/js/bootstrap.js"></script>
 	<script src="~/js/mdb.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>

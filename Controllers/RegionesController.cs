@@ -8,30 +8,43 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using X.PagedList;
 using ASP.NET_CORE_WEB_SITE.Extensions;
+using ASP.NET_CORE_WEB_SITE.Settings;
 
 namespace ASP.NET_CORE_WEB_SITE.Controllers
 {
 	public class RegionesController : Controller
 	{
-		RegionesRepository repository = new RegionesRepository();
-		PaisesRepository pais_repository = new PaisesRepository();
+		#region ..:: [ VARIABLES ] ::..
+
+		RegionesRepository repository;
+		PaisesRepository pais_repository;
 		const int DefaultPageSize = 2;
 		static PagedList<Regiones> model;
 		HttpContext context;
-		public RegionesController(IHttpContextAccessor httpContextAccessor)
+
+		#endregion
+
+		#region ..:: [ CONSTRUCTOR ] ::..
+
+		public RegionesController(IHttpContextAccessor httpContextAccessor, SettingsStoreApp settings)
 		{
+			repository = new RegionesRepository(settings.StoreAppSettings.WebApiBaseUrl);
+			pais_repository = new PaisesRepository(settings.StoreAppSettings.WebApiBaseUrl);
 			context = httpContextAccessor.HttpContext;
-			ViewData[@"Message"] = @"";
 		}
+
+		#endregion
+
+		#region ..:: [ ActionResults ] ::..
 
 		public async Task<ActionResult> Index(int page = 1, int pageSize = 2)
 		{
 			try
 			{
-				var lista = await repository.ListarRegiones();
 				IEnumerable<Paises> paises = await pais_repository.ListarPaises();
-				context.Session.Set<List<Paises>>("ListaPaises", paises as List<Paises>);
-				ViewData["Paises"] = paises as List<Paises>;
+				context.Session.Set(@"ListaPaises", paises as List<Paises>);
+				ViewData[@"Paises"] = paises as List<Paises>;
+				var lista = await repository.ListarRegiones();
 				var newList = lista.ToPagedList(page, DefaultPageSize);
 				model = (PagedList<Regiones>)newList;
 				return View(model);
@@ -54,9 +67,8 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 		{
 			try
 			{
-				ViewData["Paises"] = HttpContext.Session.Get<IEnumerable<Paises>>("ListaPaises");
-				bool result = await repository.AgregarRegion(Region, paisId);
-				if (result)
+				ViewData["Paises"] = HttpContext.Session.Get<IEnumerable<Paises>>(@"ListaPaises");
+				if (await repository.AgregarRegion(Region, paisId))
 				{
 					ViewData[@"TitleMessage"] = @"Nueva región";
 					ViewData[@"Message"] = @"El registro se ha agregado satisfactoriamente";
@@ -76,16 +88,17 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 
 		public async Task<IActionResult> Edit(int id)
 		{
-			Regiones result = new Regiones();
+			ViewData[@"Paises"] = HttpContext.Session.Get<IEnumerable<Paises>>(@"ListaPaises");
 			try
 			{
-				result = await repository.ObtenerDetalleRegion(id);
+				var result = await repository.ObtenerDetalleRegion(id);
+				return View(result);
 			}
 			catch (Exception ex)
 			{
 				ShowMessages(@"Error", ex.Message);
 			}
-			return View(result);
+			return View(new Regiones());
 		}
 
 		[HttpPost]
@@ -93,8 +106,8 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 		{
 			try
 			{
-				bool result = await repository.ActualizarRegion(regiones);
-				if (result)
+				ViewData[@"Paises"] = HttpContext.Session.Get<IEnumerable<Paises>>(@"ListaPaises");
+				if (await repository.ActualizarRegion(regiones))
 				{
 					ViewData[@"TitleMessage"] = @"Actualización región";
 					ViewData[@"Message"] = @"El registro se ha actualizado satisfactoriamente";
@@ -115,22 +128,26 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 		[HttpDelete]
 		public async Task<JsonResult> Delete(int id)
 		{
-			bool result = false;
 			try
 			{
-				result = await repository.EliminarRegion(id);
+				return Json(await repository.EliminarRegion(id));
 			}
 			catch (Exception ex)
 			{
 				ShowMessages("@Error", ex.Message);
 			}
-			return Json(result);
+			return Json(false);
 		}
+		#endregion
+
+		#region ..:: [ METHODS ] ::..
 
 		public JsonResult getPagedList()
 		{
-			PagedList<Regiones> pages = (PagedList<Regiones>)model;
-			PaginationModel Pagination_Model = new PaginationModel() { hasNextPage = pages.HasNextPage, hasPreviousPage = pages.HasPreviousPage, pageCount = pages.PageCount, pageSize = pages.PageSize, page = pages.PageNumber };
+			PagedList<Regiones> pages = model;
+			PaginationModel Pagination_Model = new PaginationModel();
+			if (pages != null) Pagination_Model = new PaginationModel() { hasNextPage = pages.HasNextPage, hasPreviousPage = pages.HasPreviousPage, pageCount = pages.PageCount, pageSize = pages.PageSize, page = pages.PageNumber };
+			else Pagination_Model = null;
 			return Json(Pagination_Model);
 		}
 
@@ -138,7 +155,8 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 		{
 			ViewData[@"Message"] = Message;
 			ViewData[@"TitleMessage"] = ViewData[@"Error"] = Title;
-		}
+		} 
 
+		#endregion
 	}
 }

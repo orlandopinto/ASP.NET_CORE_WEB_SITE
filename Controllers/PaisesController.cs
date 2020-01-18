@@ -1,6 +1,7 @@
 ﻿using ASP.NET_CORE_CLASS_MODELS;
 using ASP.NET_CORE_WEB_SITE.Infraestructure;
 using ASP.NET_CORE_WEB_SITE.Repositories;
+using ASP.NET_CORE_WEB_SITE.Settings;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -10,14 +11,21 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 {
 	public class PaisesController : Controller
 	{
-		PaisesRepository repository = new PaisesRepository();
+		#region ..:: [ VARIABLES ] ::..
+
+		PaisesRepository repository;
 		const int DefaultPageSize = 2;
 		static PagedList<Paises> model;
 
-		public PaisesController()
-		{
-			ViewData[@"Message"] = @"";
-		}
+		#endregion
+
+		#region ..:: [ CONSTRUCTORS ] ::..
+
+		public PaisesController(SettingsStoreApp settings) => repository = new PaisesRepository(settings.StoreAppSettings.WebApiBaseUrl);
+
+		#endregion
+
+		#region ..:: [ ActionResults ] ::..
 
 		public async Task<ActionResult> Index(int page = 1, int pageSize = 2)
 		{
@@ -45,16 +53,15 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 		{
 			try
 			{
-				bool result = await repository.AgregarPais(Pais);
-				if (result)
+				if (await repository.AgregarPais(Pais))
 				{
 					ViewData[@"TitleMessage"] = @"Nuevo país";
 					ViewData[@"Message"] = @"El registro se ha agregado satisfactoriamente";
 				}
 				else
 				{
-					ViewData[@"Message"] = @"Se produjo un error al agregar el país";
 					ViewData[@"TitleMessage"] = ViewData[@"Error"] = @"Error";
+					ViewData[@"Message"] = @"Se produjo un error al agregar el país";
 				}
 			}
 			catch (Exception ex)
@@ -66,16 +73,15 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 
 		public async Task<IActionResult> Edit(int id)
 		{
-			Paises result = new Paises();
 			try
 			{
-				result = await repository.ObtenerDetallePais(id);
+				return View(await repository.ObtenerDetallePais(id));
 			}
 			catch (Exception ex)
 			{
 				ShowMessages(@"Error", ex.Message);
 			}
-			return View(result);
+			return View(new Paises());
 		}
 
 		[HttpPost]
@@ -83,8 +89,7 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 		{
 			try
 			{
-				bool result = await repository.ActualizarPais(paises);
-				if (result)
+				if (await repository.ActualizarPais(paises))
 				{
 					ViewData[@"TitleMessage"] = @"Actualización país";
 					ViewData[@"Message"] = @"El registro se ha actualizado satisfactoriamente";
@@ -105,22 +110,27 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 		[HttpDelete]
 		public async Task<JsonResult> Delete(int id)
 		{
-			bool result = false;
 			try
 			{
-				result = await repository.EliminarPais(id);
+				return Json(await repository.EliminarPais(id));
 			}
 			catch (Exception ex)
 			{
 				ShowMessages("@Error", ex.Message);
 			}
-			return Json(result);
+			return Json(false);
 		}
+
+		#endregion
+
+		#region ..:: [ METHODS ] ::..
 
 		public JsonResult getPagedList()
 		{
-			PagedList<Paises> pages = (PagedList<Paises>)model;
-			PaginationModel Pagination_Model = new PaginationModel() { hasNextPage = pages.HasNextPage, hasPreviousPage = pages.HasPreviousPage, pageCount = pages.PageCount, pageSize = pages.PageSize, page = pages.PageNumber };
+			PagedList<Paises> pages = model;
+			PaginationModel Pagination_Model = new PaginationModel();
+			if (pages != null) Pagination_Model = new PaginationModel() { hasNextPage = pages.HasNextPage, hasPreviousPage = pages.HasPreviousPage, pageCount = pages.PageCount, pageSize = pages.PageSize, page = pages.PageNumber };
+			else Pagination_Model = null;
 			return Json(Pagination_Model);
 		}
 
@@ -128,7 +138,8 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 		{
 			ViewData[@"Message"] = Message;
 			ViewData[@"TitleMessage"] = ViewData[@"Error"] = Title;
-		}
+		} 
 
+		#endregion
 	}
 }
