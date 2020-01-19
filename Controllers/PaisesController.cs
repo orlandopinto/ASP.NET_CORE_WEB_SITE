@@ -4,6 +4,7 @@ using ASP.NET_CORE_WEB_SITE.Repositories;
 using ASP.NET_CORE_WEB_SITE.Settings;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using X.PagedList;
 
@@ -16,12 +17,18 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 		PaisesRepository repository;
 		const int DefaultPageSize = 2;
 		static PagedList<Paises> model;
+		public string path { get; set; }
 
 		#endregion
 
 		#region ..:: [ CONSTRUCTORS ] ::..
 
-		public PaisesController(SettingsStoreApp settings) => repository = new PaisesRepository(settings.StoreAppSettings.WebApiBaseUrl);
+		public PaisesController(SettingsStoreApp settings)
+		{
+			ServicePointManager.ServerCertificateValidationCallback += (se, cert, chain, sslerror) => { return true; };
+			repository = new PaisesRepository(settings.StoreAppSettings.WebApiBaseUrl);
+			path = settings.StoreAppSettings.WebApiBaseUrl;
+		}
 
 		#endregion
 
@@ -127,6 +134,8 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 
 		public JsonResult getPagedList()
 		{
+			ViewData[@"TitleMessage"] = "public JsonResult getPagedList()";
+			ViewData[@"Message"] = path;
 			PagedList<Paises> pages = model;
 			PaginationModel Pagination_Model = new PaginationModel();
 			if (pages != null) Pagination_Model = new PaginationModel() { hasNextPage = pages.HasNextPage, hasPreviousPage = pages.HasPreviousPage, pageCount = pages.PageCount, pageSize = pages.PageSize, page = pages.PageNumber };

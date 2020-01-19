@@ -14,7 +14,7 @@ namespace ASP.NET_CORE_WEB_SITE
 			Host.CreateDefaultBuilder(args)
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
-					webBuilder.UseEnvironment("Production");
+					webBuilder.UseEnvironment(@"Production");
 					webBuilder.UseStartup<Startup>();
 				});
 	}

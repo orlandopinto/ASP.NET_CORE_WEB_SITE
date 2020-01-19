@@ -32,9 +32,11 @@
 							if (item.PaisID == Model.PaisID)
 							{
 								<option selected value="@item.PaisID">@item.Pais</option>
-
 							}
-							<option value="@item.PaisID">@item.Pais</option>
+							else
+							{
+								<option value="@item.PaisID">@item.Pais</option>
+							}
 						}
 					}
 				</select>

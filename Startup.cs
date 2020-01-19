@@ -1,16 +1,10 @@
-using ASP.NET_CORE_WEB_SITE.Models;
-using ASP.NET_CORE_WEB_SITE.Repositories;
 using ASP.NET_CORE_WEB_SITE.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using System;
 
 namespace ASP.NET_CORE_WEB_SITE
 {
@@ -27,7 +21,7 @@ namespace ASP.NET_CORE_WEB_SITE
 			services.AddMvc().AddSessionStateTempDataProvider();
 			services.AddControllersWithViews().AddRazorRuntimeCompilation();
 			var storeAppSettings = new StoreAppSettings();
-			Configuration.GetSection("StoreAppSettings").Bind(storeAppSettings);
+			Configuration.GetSection(@"StoreAppSettings").Bind(storeAppSettings);
 			services.AddScoped(sp => sp.GetService<IOptionsSnapshot<SettingsStoreApp>>().Value);
 			services.Configure<SettingsStoreApp>(Configuration);
 			services.AddControllers(options =>
@@ -49,10 +43,10 @@ namespace ASP.NET_CORE_WEB_SITE
 			app.UseRouting();
 			app.UseAuthorization();
 			app.UseSession();
-			app.UseEndpoints(endpoints => { endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}"); });
-			var configurationBuilder = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("appsettings.json", true, true).AddJsonFile($"appsettings.{env.EnvironmentName}.json", true).AddEnvironmentVariables();
+			app.UseEndpoints(endpoints => { endpoints.MapControllerRoute(name: @"default", pattern: @"{controller=Home}/{action=Index}/{id?}"); });
+			var configurationBuilder = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile(@"appsettings.json", true, true).AddJsonFile($"appsettings.{env.EnvironmentName}.json", true).AddEnvironmentVariables();
 			Configuration = configurationBuilder.Build();
-			string conexion = Configuration.GetConnectionString("Test");
+			string conexion = Configuration.GetConnectionString(@"Test");
 		}
 	}
 }

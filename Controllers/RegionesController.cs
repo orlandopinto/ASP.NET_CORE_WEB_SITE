@@ -58,7 +58,7 @@ namespace ASP.NET_CORE_WEB_SITE.Controllers
 
 		public IActionResult Create()
 		{
-			ViewData["Paises"] = HttpContext.Session.Get<IEnumerable<Paises>>("ListaPaises");
+			ViewData[@"Paises"] = HttpContext.Session.Get<IEnumerable<Paises>>(@"ListaPaises");
 			return View();
 		}
 

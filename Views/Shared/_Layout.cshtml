@@ -19,7 +19,6 @@
 		.list-unstyled li:hover {
 			transition: all .2s ease-in-out;
 		}
-		
 	</style>
 </head>
 <body>
@@ -31,7 +30,7 @@
 					<span class="sr-only">Toggle Menu</span>
 				</div>
 			</div>
-			<div class="p-4  animated bounceInLeft">
+			<div class="sidebar-control p-4 animated bounceInLeft">
 				<div class="w-100 d-flex justify-content-center p-2">
 					<img src="~/images/Worms.png" alt="" class="imgUser rounded-circle pulse" />
 				</div>
@@ -59,7 +58,7 @@
 					<div class="d-flex">
 						<div class="w-100">
 							<a class="navbar-brand px-3" href="javascript:void(0)">
-								<img src="~/images/logo.png" alt="" style="width:80px;" class="animated bounceInLeft" />
+								<img src="~/images/logo.png" alt="" style="width:80px;" class="logo-control animated bounceInLeft" />
 							</a>
 						</div>
 						<div class="flex-shrink-1">
@@ -179,7 +178,7 @@
 			<div class="pr-3 text-right">&copy; 2020 - Admin Template demo - <a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></div>
 		</div>
 	</footer>
-	
+
 	<script src="~/js/bootstrap.js"></script>
 	<script src="~/js/mdb.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
@@ -192,6 +191,15 @@
 		colorbar.go(100);
 		var centeredbar = new Nanobar({ target: document.getElementById('centered') });
 		centeredbar.go(100);
+
+		if (sessionStorage.getItem('sidebar-control') == null) {
+			sessionStorage.setItem('sidebar-control', true);
+			sessionStorage.setItem('logo-control', true);
+		}
+		else {
+			$('.sidebar-control').removeClass('animated').removeClass('bounceInLeft');
+			$('.logo-control').removeClass('animated').removeClass('bounceInLeft');
+		}
 	</script>
 	@RenderSection("Scripts", required: false)
 

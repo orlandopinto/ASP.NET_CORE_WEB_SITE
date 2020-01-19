@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Authentication;
 using System.Text;
@@ -25,7 +26,13 @@ namespace ASP.NET_CORE_WEB_SITE.Repositories
 
 		public PaisesRepository(string baseAddress = null)
 		{
-			var handler = new HttpClientHandler() { ClientCertificateOptions = ClientCertificateOption.Automatic, SslProtocols = SslProtocols.Tls12 };
+			ServicePointManager.ServerCertificateValidationCallback += (se, cert, chain, sslerror) => { return true; };
+			var handler = new HttpClientHandler()
+			{
+				ClientCertificateOptions = ClientCertificateOption.Automatic,
+				SslProtocols = SslProtocols.Tls12,
+				//Credentials = new NetworkCredential("user", "password")
+			};
 			client = new HttpClient(handler);
 			client.BaseAddress = new Uri(baseAddress);
 		}
@@ -96,7 +103,7 @@ namespace ASP.NET_CORE_WEB_SITE.Repositories
 		{
 			HttpResponseMessage response = await client.DeleteAsync(@"Paises/" + id);
 			return response.IsSuccessStatusCode;
-		} 
+		}
 
 		#endregion
 	}
